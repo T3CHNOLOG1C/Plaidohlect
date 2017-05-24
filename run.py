@@ -115,7 +115,7 @@ async def on_ready():
         bot.helpers_channel = discord.utils.get(server.channels, name="helpers")
         bot.offtopic_channel = discord.utils.get(server.channels, name="off-topic")
         bot.voiceandmusic_channel = discord.utils.get(server.channels, name="voice-and-music")
-        bot.elsewhere_channel = discord.utils.get(server.channels, name="elsewhere")
+        bot.nsfw_channel = discord.utils.get(server.channels, name="nsfw")
         bot.mods_channel = discord.utils.get(server.channels, name="mods")
         bot.modlogs_channel = discord.utils.get(server.channels, name="mod-logs")
         bot.serverlogs_channel = discord.utils.get(server.channels, name="server-logs")
@@ -138,7 +138,7 @@ async def on_ready():
         bot.nomemes_role = discord.utils.get(server.roles, name="No-Memes")
         bot.nohelp_role = discord.utils.get(server.roles, name="No-Help")
         bot.noembed_role = discord.utils.get(server.roles, name="No-Embed")
-        bot.elsewhere_role = discord.utils.get(server.roles, name="#elsewhere")
+        bot.nsfw_role = discord.utils.get(server.roles, name="nsfw")
         bot.eventchat_role = discord.utils.get(server.roles, name="#eventchat")
         bot.everyone_role = server.default_role
 
