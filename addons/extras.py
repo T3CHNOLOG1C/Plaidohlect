@@ -140,20 +140,13 @@ class Extras:
         """Enable or disable access to specific channels."""
         author = ctx.message.author
         await self.bot.delete_message(ctx.message)
-        if channelname == "elsewhere":
-            if self.bot.elsewhere_role in author.roles:
-                await self.bot.remove_roles(author, self.bot.elsewhere_role)
-                await self.bot.send_message(author, "Access to #elsewhere removed.")
+        if channelname == "nsfw":
+            if self.bot.nsfw_role in author.roles:
+                await self.bot.remove_roles(author, self.bot.nsfw_role)
+                await self.bot.send_message(author, "Access to #nsfw removed.")
             else:
-                await self.bot.add_roles(author, self.bot.elsewhere_role)
-                await self.bot.send_message(author, "Access to #elsewhere granted.")
-        if channelname == "eventchat":
-            if self.bot.eventchat_role in author.roles:
-                await self.bot.remove_roles(author, self.bot.eventchat_role)
-                await self.bot.send_message(author, "Access to #eventchat granted.")
-            else:
-                await self.bot.add_roles(author, self.bot.eventchat_role)
-                await self.bot.send_message(author, "Access to #eventchat granted.")
+                await self.bot.add_roles(author, self.bot.nsfw_role)
+                await self.bot.send_message(author, "Access to #nsfw granted.")
         else:
             await self.bot.send_message(author, "{} is not a valid toggleable channel.".format(channelname))
 
