@@ -19,13 +19,13 @@ class Extras:
     prune_key = "nokey"
 
     @commands.command()
-    async def kurisu(self):
-        """About Kurisu"""
-        embed = discord.Embed(title="Kurisu", color=discord.Color.green())
-        embed.set_author(name="916253 and ihaveahax")
-        embed.set_thumbnail(url="http://i.imgur.com/hjVY4Et.jpg")
-        embed.url = "https://github.com/916253/Kurisu"
-        embed.description = "Kurisu, the Nintendo Homebrew Discord bot!"
+    async def about(self):
+        """About Plaidohlect"""
+        embed = discord.Embed(title="Plaidohlect", color=discord.Color.orange())
+        embed.set_author(name="T3CHNOLOG1C")
+        embed.set_thumbnail(url="http://i.imgur.com/6C2VD4Z.jpg")
+        embed.url = "https://github.com/T3CHNOLOG1C/Playdohlect"
+        embed.description = "Plaidohlect, the Secret Shack Service bot!"
         await self.bot.say("", embed=embed)
 
     @commands.command()
