@@ -16,3 +16,5 @@ Although it is open source, this bot is not really designed to be used in other 
 - discord.py[voice] ~= 0.12.0
 - youtube_dl
 - cffi==1.6.0
+
+Credits to [SexualRhinoceros](https://github.com/just-some-bots/MusicBot) for the music bot!
