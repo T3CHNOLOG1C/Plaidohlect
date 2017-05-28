@@ -5,7 +5,7 @@
 # https://github.com/T3CHNOLOG1C/Playdohlect
 
 description = """
-Playdohlect, the bot for the Secret Shack Service Discord!
+Playdohlect, the bot for the Secret Shack Service Discord!	
 """
 
 # import dependencies
@@ -18,7 +18,6 @@ import copy
 import configparser
 import traceback
 import sys
-import os
 import re
 
 # sets working directory to bot's folder
