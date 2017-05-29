@@ -98,7 +98,7 @@ class Extras:
         self.bot.pruning = count
         await self.bot.send_message(self.bot.mods_channel, "{:,} are currently being kicked from {}!".format(count, self.bot.server.name))
         msg = "👢 **Prune**: {} pruned {:,} members".format(ctx.message.author.mention, count)
-        await self.bot.send_message(self.bot.modlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg)
 
     @commands.has_permissions(manage_nicknames=True)
     @commands.command()

@@ -24,7 +24,7 @@ class Lockdown:
             await self.bot.edit_channel_permissions(ctx.message.channel, self.bot.everyone_role, overwrites_everyone)
             await self.bot.say("🔒 Channel locked down. Only staff members may speak. Do not bring the topic to other channels or risk disciplinary actions.")
             msg = "🔒 **Lockdown**: {0} by {1} | {2}#{3}".format(ctx.message.channel.mention, ctx.message.author.mention, ctx.message.author.name, ctx.message.author.discriminator)
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg)
        except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
@@ -44,7 +44,7 @@ class Lockdown:
             await self.bot.edit_channel_permissions(ctx.message.channel, self.bot.staff_role, overwrites_staff)
             await self.bot.say("🔒 Channel locked down. Only owners members may speak. Do not bring the topic to other channels or risk disciplinary actions.")
             msg = "🔒 **Super lockdown**: {0} by {1} | {2}#{3}".format(ctx.message.channel.mention, ctx.message.author.mention, ctx.message.author.name, ctx.message.author.discriminator)
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg)
        except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
@@ -61,7 +61,7 @@ class Lockdown:
             await self.bot.edit_channel_permissions(ctx.message.channel, self.bot.everyone_role, overwrites_everyone)
             await self.bot.say("🔒 Channel locked.")
             msg = "🔒 **Soft-lock**: {0} by {1} | {2}#{3}".format(ctx.message.channel.mention, ctx.message.author.mention, ctx.message.author.name, ctx.message.author.discriminator)
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg)
        except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
@@ -81,7 +81,7 @@ class Lockdown:
             await self.bot.edit_channel_permissions(ctx.message.channel, self.bot.staff_role, overwrites_staff)
             await self.bot.say("🔓 Channel unlocked.")
             msg = "🔓 **Unlock**: {0} by {1} | {2}#{3}".format(ctx.message.channel.mention, ctx.message.author.mention, ctx.message.author.name, ctx.message.author.discriminator)
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg)
        except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 

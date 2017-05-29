@@ -62,7 +62,7 @@ class ModStaff:
         await self.bot.add_roles(author, self.bot.halfop_role)
         await self.bot.say("{} is now using sudo. Welcome to the twilight zone!".format(author.mention))
         msg = "👮 **Sudo**: {} | {}#{}".format(author.mention, author.name, author.discriminator)
-        await self.bot.send_message(self.bot.modlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg)
 
     @commands.has_permissions(manage_nicknames=True)
     @commands.command(pass_context=True)
@@ -80,7 +80,7 @@ class ModStaff:
         await self.bot.remove_roles(author, self.bot.halfop_role)
         await self.bot.say("{} is no longer using sudo!".format(author.mention))
         msg = "🕵 **Unsudo**: {} | {}#{}".format(author.mention, author.name, author.discriminator)
-        await self.bot.send_message(self.bot.modlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg)
 
 def setup(bot):
     bot.add_cog(ModStaff(bot))

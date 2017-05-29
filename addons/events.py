@@ -94,7 +94,7 @@ class Events:
             for msg in msgs_to_delete:
                 embed.add_field(name="#"+msg.channel.name, value="\u200b" + msg.content)  # added zero-width char to prevent an error with an empty string (lazy workaround)
             await self.bot.send_message(self.bot.memberlogs_channel, log_msg, embed=embed)
-            await self.bot.send_message(self.bot.automod_channel, log_msg + "\nSee {} for a list of deleted messages.".format(self.bot.modlogs_channel.mention))
+            await self.bot.send_message(self.bot.automod_channel, log_msg + "\nSee {} for a list of deleted messages.".format(self.bot.adminlogs_channel.mention))
             for msg in msgs_to_delete:
                 try:
                     await self.bot.delete_message(msg)
@@ -123,8 +123,8 @@ class Events:
                 embed.add_field(name="@"+self.bot.escape_name(msg.author), value="\u200b" + msg.content)  # added zero-width char to prevent an error with an empty string (lazy workaround)
             await self.bot.send_message(message.channel, msg_channel)
             log_msg = "🔒 **Auto-locked**: {} locked for spam".format(message.channel.mention)
-            await self.bot.send_message(self.bot.modlogs_channel, log_msg, embed=embed)
-            await self.bot.send_message(self.bot.automod_channel, log_msg + " @here\nSee {} for a list of deleted messages.".format(self.bot.modlogs_channel.mention))
+            await self.bot.send_message(self.bot.adminlogs_channel, log_msg, embed=embed)
+            await self.bot.send_message(self.bot.automod_channel, log_msg + " @here\nSee {} for a list of deleted messages.".format(self.bot.adminlogs_channel.mention))
             msgs_to_delete = self.channel_antispam[message.channel.id][:]  # clone list so nothing is removed while going through it
             for msg in msgs_to_delete:
                 try:
