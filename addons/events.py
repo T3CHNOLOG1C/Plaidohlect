@@ -76,26 +76,6 @@ class Events:
             await self.bot.send_message(self.bot.adminlogs_channel, "**Potential drama/heated debate Warning**: {} posted a blacklisted word in {}".format(message.author.mention, message.channel.mention), embed=embed)
 
 
-    async def keyword_search(self, message):
-        msg = ''.join(char for char in message.content.lower() if char in printable)
-        if "wiiu" in message.channel.name and "download" in msg and "update" in msg and "manag" in msg:  # intentional typo in manage
-            embed = discord.Embed(description="A failed update in Download Management does not mean there is an update and the system is trying to download it. This means your blocking method (DNS etc.) is working and the system can't check for an update.", color=discord.Color(0x009AC7))
-            await self.bot.send_message(message.channel, message.author.mention, embed=embed)
-        # search for terms that might indicate a question meant for the help channels
-        help_embed = discord.Embed(description="Hello! If you are looking for help with setting up hacks for your 3DS or Wii U system, please ask your question in one of the assistance channels.\n\nFor 3DS, there is <#196635695958196224> or <#247557068490276864>. Ask in one of them.\n\nFor Wii U, go to <#279783073497874442>.\n\nThank you for stopping by!", color=discord.Color.green())
-        help_embed.set_footer(text="This auto-response is under development. If you did not ask about the above, you don't need to do anything.")
-        if message.author.id not in self.help_notice_anti_repeat:
-            if message.channel.name == "hacking-general":
-                if all(x in msg for x in ('help ', 'me',)):
-                    await self.bot.send_message(message.channel, message.author.mention, embed=help_embed)
-                    await self.bot.send_message(self.bot.mods_channel, "Auto-response test in {}".format(message.channel.mention))
-                    self.help_notice_anti_repeat.append(message.author.id)
-                    await asyncio.sleep(120)
-                    try:
-                        self.help_notice_anti_repeat.remove(message.author.id)
-                    except ValueError:
-                        pass
-
     async def user_spam_check(self, message):
         if message.author.id not in self.user_antispam:
             self.user_antispam[message.author.id] = []
@@ -113,8 +93,8 @@ class Events:
             msgs_to_delete = self.user_antispam[message.author.id][:]  # clone list so nothing is removed while going through it
             for msg in msgs_to_delete:
                 embed.add_field(name="#"+msg.channel.name, value="\u200b" + msg.content)  # added zero-width char to prevent an error with an empty string (lazy workaround)
-            await self.bot.send_message(self.bot.modlogs_channel, log_msg, embed=embed)
-            await self.bot.send_message(self.bot.mods_channel, log_msg + "\nSee {} for a list of deleted messages.".format(self.bot.modlogs_channel.mention))
+            await self.bot.send_message(self.bot.memberlogs_channel, log_msg, embed=embed)
+            await self.bot.send_message(self.bot.automod_channel, log_msg + "\nSee {} for a list of deleted messages.".format(self.bot.modlogs_channel.mention))
             for msg in msgs_to_delete:
                 try:
                     await self.bot.delete_message(msg)
@@ -144,7 +124,7 @@ class Events:
             await self.bot.send_message(message.channel, msg_channel)
             log_msg = "🔒 **Auto-locked**: {} locked for spam".format(message.channel.mention)
             await self.bot.send_message(self.bot.modlogs_channel, log_msg, embed=embed)
-            await self.bot.send_message(self.bot.mods_channel, log_msg + " @here\nSee {} for a list of deleted messages.".format(self.bot.modlogs_channel.mention))
+            await self.bot.send_message(self.bot.automod_channel, log_msg + " @here\nSee {} for a list of deleted messages.".format(self.bot.modlogs_channel.mention))
             msgs_to_delete = self.channel_antispam[message.channel.id][:]  # clone list so nothing is removed while going through it
             for msg in msgs_to_delete:
                 try:
