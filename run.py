@@ -115,6 +115,8 @@ async def on_ready():
         bot.serverlogs_channel = discord.utils.get(server.channels, name="server-logs")
         bot.messagelogs_channel = discord.utils.get(server.channels, name="message-logs")
         bot.adminlogs_channel = discord.utils.get(server.channels, name="admin-logs")
+        bot.memberlogs_channel = discord.utils.get(server.channels, name="member-logs")
+        bot.automod_channel = discord.utils.get(server.channels, name="automod-notifs")
 
         # roles
         bot.staff_role = discord.utils.get(server.roles, name="Staff")
@@ -122,9 +124,6 @@ async def on_ready():
         bot.op_role = discord.utils.get(server.roles, name="OP")
         bot.superop_role = discord.utils.get(server.roles, name="SuperOP")
         bot.owner_role = discord.utils.get(server.roles, name="Owner")
-        bot.helpers_role = discord.utils.get(server.roles, name="Helpers")
-        bot.onduty3ds_role = discord.utils.get(server.roles, name="On-Duty 3DS")
-        bot.ondutywiiu_role = discord.utils.get(server.roles, name="On-Duty Wii U")
         bot.verified_role = discord.utils.get(server.roles, name="Verified")
         bot.trusted_role = discord.utils.get(server.roles, name="Trusted")
         bot.probation_role = discord.utils.get(server.roles, name="Probation")
@@ -202,7 +201,6 @@ addons = [
     'addons.logs',
     'addons.loop',
     'addons.memes',
-    'addons.helper_list',
     'addons.mod_staff',
     'addons.mod_warn',
     'addons.mod',

@@ -194,54 +194,6 @@ class Mod:
         except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
-    @commands.command(pass_context=True, name="takehelp")
-    async def takehelp(self, ctx, user, *, reason=""):
-        """Remove access to help-and-questions. Staff and Helpers only."""
-        author = ctx.message.author
-        if (self.bot.helpers_role not in author.roles) and (self.bot.staff_role not in author.roles):
-            msg = "{} You cannot use this command.".format(author.mention)
-            await self.bot.say(msg)
-            return
-        try:
-            member = ctx.message.mentions[0]
-            await self.add_restriction(member, "No-Help")
-            await self.bot.add_roles(member, self.bot.nohelp_role)
-            msg_user = "You lost access to help channels!"
-            if reason != "":
-                msg_user += " The given reason is: " + reason
-            try:
-                await self.bot.send_message(member, msg_user)
-            except discord.errors.Forbidden:
-                pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
-            await self.bot.say("{} can no longer access the help channels.".format(member.mention))
-            msg = "🚫 **Help access removed**: {} removed access to help channels from {} | {}#{}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), self.bot.escape_name(member.discriminator))
-            if reason != "":
-                msg += "\n✏️ __Reason__: " + reason
-            else:
-                msg += "\nPlease add an explanation below. In the future, it is recommended to use `.takehelp <user> [reason]` as the reason is automatically sent to the user."
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
-            await self.bot.send_message(self.bot.helpers_channel, msg)
-        except discord.errors.Forbidden:
-            await self.bot.say("💢 I don't have permission to do this.")
-
-    @commands.command(pass_context=True, name="givehelp")
-    async def givehelp(self, ctx, user):
-        """Restore access to help-and-questions. Staff and Helpers only."""
-        author = ctx.message.author
-        if (self.bot.helpers_role not in author.roles) and (self.bot.staff_role not in author.roles):
-            msg = "{} You cannot use this command.".format(author.mention)
-            await self.bot.say(msg)
-            return
-        try:
-            member = ctx.message.mentions[0]
-            await self.remove_restriction(member, "No-Help")
-            await self.bot.remove_roles(member, self.bot.nohelp_role)
-            await self.bot.say("{} can access the help channels again.".format(member.mention))
-            msg = "⭕️ **Help access restored**: {} restored access to help channels to {} | {}#{}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), self.bot.escape_name(member.discriminator))
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
-            await self.bot.send_message(self.bot.helpers_channel, msg)
-        except discord.errors.Forbidden:
-            await self.bot.say("💢 I don't have permission to do this.")
 
     @commands.has_permissions(manage_nicknames=True)
     @commands.command(pass_context=True, name="probate")
