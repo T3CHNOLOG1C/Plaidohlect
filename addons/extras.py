@@ -128,19 +128,20 @@ class Extras:
         await self.bot.say("Done!")
 
     @commands.command(pass_context=True, hidden=True)
-    async def togglechannel(self, ctx, channelname:str):
+    async def togglechannel(self, ctx, channelname):
         """Enable or disable access to specific channels."""
         author = ctx.message.author
         await self.bot.delete_message(ctx.message)
-        if channelname.lower() in self.toggablechannels:
-            if discord.utils.get(server.roles, name=self.toggablechannels[channelname.lower()]) in author.roles:
-                await self.bot.remove_roles(author,discord.utils.get(server.roles, name=self.toggablechannels[channelname.lower()]))
-                await self.bot.send_message(author, "Access to #{0} removed.".format(channelname))
+        if channelname == "nsfw":
+            if self.bot.nsfw_role in author.roles:
+                await self.bot.remove_roles(author, self.bot.nsfw_role)
+                await self.bot.send_message(author, "Access to #nsfw removed.")
             else:
-                await self.bot.add_roles(author, discord.utils.get(server.roles, name=self.toggablechannels[channelname.lower()]))
-                await self.bot.send_message(author, "Access to #{0} granted.".format(channelname))
+                await self.bot.add_roles(author, self.bot.nsfw_role)
+                await self.bot.send_message(author, "Access to #nsfw granted.")
         else:
             await self.bot.send_message(author, "{} is not a valid toggleable channel.".format(channelname))
+
 
 def setup(bot):
     bot.add_cog(Extras(bot))
