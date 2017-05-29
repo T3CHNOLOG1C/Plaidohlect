@@ -38,8 +38,8 @@ class KickBan:
             msg = "👢 **Kick**: {} kicked {} | {}#{}\n🏷 __User ID__: {}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
             if reason != "":
                 msg += "\n✏️ __Reason__: " + reason
-            await self.bot.send_message(self.bot.serverlogs_channel, msg)
-            await self.bot.send_message(self.bot.modlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.kick <user> [reason]` as the reason is automatically sent to the user." if reason == "" else ""))
+            await self.bot.send_message(self.bot.memberlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.kick <user> [reason]` as the reason is automatically sent to the user." if reason == "" else ""))
         except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
@@ -67,8 +67,8 @@ class KickBan:
             msg = "⛔ **Ban**: {} banned {} | {}#{}\n🏷 __User ID__: {}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
             if reason != "":
                 msg += "\n✏️ __Reason__: " + reason
-            await self.bot.send_message(self.bot.serverlogs_channel, msg)
-            await self.bot.send_message(self.bot.modlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.ban <user> [reason]` as the reason is automatically sent to the user." if reason == "" else ""))
+            await self.bot.send_message(self.bot.memberlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.ban <user> [reason]` as the reason is automatically sent to the user." if reason == "" else ""))
         except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
@@ -88,8 +88,8 @@ class KickBan:
             msg = "⛔ **Silent ban**: {} banned {} | {}#{}\n🏷 __User ID__: {}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
             if reason != "":
                 msg += "\n✏️ __Reason__: " + reason
-            await self.bot.send_message(self.bot.serverlogs_channel, msg)
-            await self.bot.send_message(self.bot.modlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.silentban <user> [reason]`." if reason == "" else ""))
+            await self.bot.send_message(self.bot.adminlogs, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.silentban <user> [reason]`." if reason == "" else ""))
         except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
@@ -140,8 +140,8 @@ class KickBan:
         msg = "⛔ **Time ban**: {} banned {} until {} | {}#{}\n🏷 __User ID__: {}".format(ctx.message.author.mention, member.mention, unban_time_string, self.bot.escape_name(member.name), member.discriminator, member.id)
         if reason != "":
             msg += "\n✏️ __Reason__: " + reason
-        await self.bot.send_message(self.bot.serverlogs_channel, msg)
-        await self.bot.send_message(self.bot.modlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.timeban <user> <length> [reason]` as the reason is automatically sent to the user." if reason == "" else ""))
+        await self.bot.send_message(self.bot.memberlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg + ("\nPlease add an explanation below. In the future, it is recommended to use `.timeban <user> <length> [reason]` as the reason is automatically sent to the user." if reason == "" else ""))
 
     @commands.has_permissions(ban_members=True)
     @commands.command(pass_context=True, name="softban")
@@ -167,8 +167,8 @@ class KickBan:
             await self.bot.kick(member)
             await self.bot.say("{} is now b&. 👍".format(self.bot.escape_name(member)))
             msg = "⛔ **Soft-ban**: {} soft-banned {} | {}#{}\n🏷 __User ID__: {}\n✏️ __Reason__: {}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), member.discriminator, member.id, reason)
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
-            await self.bot.send_message(self.bot.serverlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg)
+            await self.bot.send_message(self.bot.memberlogs_channel, msg)
         except discord.errors.Forbidden:
             await self.bot.say("💢 I don't have permission to do this.")
 
@@ -190,8 +190,8 @@ class KickBan:
             json.dump(softbans, f)
         await self.bot.say("ID {} is now b&. 👍".format(user_id))
         msg = "⛔ **Soft-ban**: {} soft-banned ID {}\n✏️ __Reason__: {}".format(ctx.message.author.mention, user_id, reason)
-        await self.bot.send_message(self.bot.modlogs_channel, msg)
-        await self.bot.send_message(self.bot.serverlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg)
+        await self.bot.send_message(self.bot.memberlogs_channel, msg)
 
     @commands.has_permissions(ban_members=True)
     @commands.command(pass_context=True, name="unsoftban")
@@ -209,7 +209,7 @@ class KickBan:
             json.dump(softbans, f)
         await self.bot.say("{} has been unbanned!".format(self.bot.escape_name(name) if name != "???" else user_id))
         msg = "⚠️ **Un-soft-ban**: {} un-soft-banned {}".format(issuer.mention, self.bot.escape_name(name) if name != "???" else "ID {}".format(user_id))
-        await self.bot.send_message(self.bot.modlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg)
 
     @commands.has_permissions(manage_nicknames=True)
     @commands.command()

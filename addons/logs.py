@@ -38,7 +38,7 @@ Thanks for stopping by and have a good time!
             msg = "🚨 **Attempted join**: {} is soft-banned by <@{}> | {}#{}".format(member.mention, softbans[member.id]["issuer_id"], self.bot.escape_name(member.name), member.discriminator)
             embed = discord.Embed(color=discord.Color.red())
             embed.description = softbans[member.id]["reason"]
-            await self.bot.send_message(self.bot.serverlogs_channel, msg, embed=embed)
+            await self.bot.send_message(self.bot.memberlogs_channel, msg, embed=embed)
             return
         with open("data/restrictions.json", "r") as f:
             rsts = json.load(f)
@@ -53,16 +53,16 @@ Thanks for stopping by and have a good time!
         try:
             warn_count = len(warns[member.id]["warns"])
             if warn_count == 0:
-                await self.bot.send_message(self.bot.serverlogs_channel, msg)
+                await self.bot.send_message(self.bot.memberlogs_channel, msg)
             else:
                 embed = discord.Embed(color=discord.Color.dark_red())
                 embed.set_author(name="Warns for {}#{}".format(self.bot.escape_name(member.name), member.discriminator), icon_url=member.avatar_url)
                 for key in range(warn_count):
                     warn = warns[member.id]["warns"][str(key + 1)]
                     embed.add_field(name="{}: {}".format(key + 1, warn["timestamp"]), value="Issuer: {}\nReason: {}".format(warn["issuer_name"], warn["reason"]))
-                await self.bot.send_message(self.bot.serverlogs_channel, msg, embed=embed)
+                await self.bot.send_message(self.bot.memberlogs_channel, msg, embed=embed)
         except KeyError:  # if the user is not in the file
-            await self.bot.send_message(self.bot.serverlogs_channel, msg)
+            await self.bot.send_message(self.bot.memberlogs_channel, msg)
         try:
             await self.bot.send_message(member, self.welcome_msg.format(self.bot.escape_name(member.name), self.bot.server.name, self.bot.welcome_channel.mention))
         except discord.errors.Forbidden:
@@ -82,10 +82,10 @@ Thanks for stopping by and have a good time!
                 await self.bot.send_message(self.bot.mods_channel, "Pruning finished!")
             return
         msg = "{}: {} | {}#{}\n🏷 __User ID__: {}".format("👢 **Auto-kick**" if "wk:"+member.id in self.bot.actions else "⬅️ **Leave**", member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
-        await self.bot.send_message(self.bot.serverlogs_channel, msg)
+        await self.bot.send_message(self.bot.memberlogs_channel, msg)
         if "wk:"+member.id in self.bot.actions:
             self.bot.actions.remove("wk:"+member.id)
-            await self.bot.send_message(self.bot.modlogs_channel, msg)
+            await self.bot.send_message(self.bot.adminlogs_channel, msg)
 
     async def on_member_ban(self, member):
         await self.bot.wait_until_all_ready()
@@ -93,12 +93,12 @@ Thanks for stopping by and have a good time!
             self.bot.actions.remove("ub:"+member.id)
             return
         msg = "⛔ **{}**: {} | {}#{}\n🏷 __User ID__: {}".format("Auto-ban" if "wb:"+member.id in self.bot.actions else "Ban", member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
-        await self.bot.send_message(self.bot.serverlogs_channel, msg)
+        await self.bot.send_message(self.bot.memberlogs_channel, msg)
         if "wb:"+member.id in self.bot.actions:
             self.bot.actions.remove("wb:"+member.id)
         else:
             msg += "\nThe responsible staff member should add an explanation below."
-        await self.bot.send_message(self.bot.modlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg)
 
     async def on_member_unban(self, server, user):
         await self.bot.wait_until_all_ready()
@@ -115,15 +115,15 @@ Thanks for stopping by and have a good time!
                 timebans.pop(user.id)
                 with open("data/timebans.json", "w") as f:
                     json.dump(timebans, f)
-        await self.bot.send_message(self.bot.modlogs_channel, msg)
+        await self.bot.send_message(self.bot.adminlogs_channel, msg)
 
     async def on_member_update(self, member_before, member_after):
         await self.bot.wait_until_all_ready()
         do_log = False  # only nickname and roles should be logged
-        dest = self.bot.modlogs_channel
+        dest = self.bot.adminlogs_channel
         if member_before.roles != member_after.roles:
             do_log = True
-            dest = self.bot.serverlogs_channel
+            dest = self.bot.memberlogs_channel
             # role removal
             if len(member_before.roles) > len(member_after.roles):
                 msg = "\n👑 __Role removal__: "
@@ -150,7 +150,7 @@ Thanks for stopping by and have a good time!
                         msg += ", "
         if self.bot.escape_name(member_before.name) != self.bot.escape_name(member_after.name):
             do_log = True
-            dest = self.bot.serverlogs_channel
+            dest = self.bot.memberlogs_channel
             msg = "\n📝 __Username change__: {} → {}".format(self.bot.escape_name(member_before.name), self.bot.escape_name(member_after.name))
         if member_before.nick != member_after.nick:
             do_log = True
