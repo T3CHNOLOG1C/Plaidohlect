@@ -22,7 +22,7 @@ class Extras:
     async def about(self):
         """About Plaidohlect"""
         embed = discord.Embed(title="Plaidohlect", color=discord.Color.orange())
-        embed.set_author(name="T3CHNOLOG1C")
+        embed.set_author(name="T3CHNOLOG1C, Sentry and Ali365Dash")
         embed.set_thumbnail(url="http://i.imgur.com/6C2VD4Z.jpg")
         embed.url = "https://github.com/T3CHNOLOG1C/Playdohlect"
         embed.description = "Plaidohlect, the Secret Shack Service bot!"
