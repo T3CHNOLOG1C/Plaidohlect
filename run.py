@@ -133,7 +133,6 @@ async def on_ready():
         bot.nohelp_role = discord.utils.get(server.roles, name="No-Help")
         bot.noembed_role = discord.utils.get(server.roles, name="No-Embed")
         bot.nsfw_role = discord.utils.get(server.roles, name="nsfw")
-        bot.eventchat_role = discord.utils.get(server.roles, name="#eventchat")
         bot.everyone_role = server.default_role
 
         bot.staff_ranks = {
