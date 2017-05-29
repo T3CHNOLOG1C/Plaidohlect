@@ -5,7 +5,7 @@
 # https://github.com/T3CHNOLOG1C/Playdohlect
 
 description = """
-Playdohlect, the bot for the Secret Shack Service Discord!	
+Plaidohlect, the bot for the Secret Shack Service Discord!	
 """
 
 # import dependencies
@@ -60,7 +60,7 @@ if not os.path.isfile("data/softbans.json"):
         f.write("{}")
 
 
-prefix = ['!', '.']
+prefix = ['.']
 bot = commands.Bot(command_prefix=prefix, description=description, pm_help=None)
 
 # http://stackoverflow.com/questions/3411771/multiple-character-replace-with-python
