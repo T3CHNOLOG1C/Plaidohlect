@@ -190,11 +190,6 @@ class Memes:
         await self._meme(ctx, "http://i.imgur.com/RQeZErU.png")
 
     @commands.command(pass_context=True, hidden=True)
-    async def dev(self, ctx):
-        """Reminds user where they are."""
-        await self.bot.say("You seem to be in <#196635781798952960>.")
-
-    @commands.command(pass_context=True, hidden=True)
     async def headrub(self, ctx):
         """Cute"""
         await self._meme(ctx, "http://i.imgur.com/j6xSoKv.jpg")
@@ -218,11 +213,6 @@ class Memes:
     async def whatisr(self, ctx):
         """MEMES?"""
         await self._meme(ctx, "http://i.imgur.com/Z8HhfzJ.jpg")
-    
-    @commands.command(pass_context=True, hidden=True)
-    async def helpers(self, ctx):
-        """MEMES?"""
-        await self._meme(ctx, "http://i.imgur.com/0v1EgMX.png")
                 
 # Load the extension
 def setup(bot):
