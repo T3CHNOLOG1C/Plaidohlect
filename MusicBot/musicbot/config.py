@@ -58,8 +58,7 @@ class Config:
 
         self._email = config.get('Credentials', 'Email', fallback=ConfigDefaults.email)
         self._password = config.get('Credentials', 'Password', fallback=ConfigDefaults.password)
-        self._login_token = config.get('Credentials', 'Token', fallback=ConfigDefaults.token)
-
+        #token should be read from token.ini
         self.auth = None
 
         self.owner_id = config.get('Permissions', 'OwnerID', fallback=ConfigDefaults.owner_id)
@@ -81,6 +80,11 @@ class Config:
 
         self.blacklist_file = config.get('Files', 'BlacklistFile', fallback=ConfigDefaults.blacklist_file)
         self.auto_playlist_file = config.get('Files', 'AutoPlaylistFile', fallback=ConfigDefaults.auto_playlist_file)
+
+        tconfig = configparser.ConfigParser(interpolation=None)
+        tconfig.read("config/token.ini")
+
+        self._login_token = tconfig.get('Main', 'token', fallback=ConfigDefaults.token)
 
         self.run_checks()
 
