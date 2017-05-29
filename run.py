@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Playdohlect by T3CHNOLOG1C
+# Plaidohlect by T3CHNOLOG1C, with help from Sentry, Ali365Dash and Hydraxis.
 # license: Apache License 2.0
 # https://github.com/T3CHNOLOG1C/Playdohlect
 
