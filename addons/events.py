@@ -64,51 +64,16 @@ class Events:
         msg_no_separators = re.sub('[ -]', '', msg)
 
         contains_invite_link = "discordapp.com/invite" in msg or "discord.gg" in msg or "join.skype.com" in msg
-        contains_misinformation_url_mention = any(x in msg_no_separators for x in ('gudie.racklab', 'guide.racklab', 'gudieracklab', 'guideracklab', 'lyricly.github.io', 'lyriclygithub', 'strawpoii',))
-        # contains_guide_mirror_mention = any(x in msg for x in ('3ds-guide.b4k.co',))
         contains_drama_alert = any(x in msg_no_separators for x in self.drama_alert)
 
         for f in message.attachments:
             if not f["filename"].lower().endswith(self.ignored_file_extensions):
                 embed2 = discord.Embed(description="Size: {}\nDownload: [{}]({})".format(f["size"], f["filename"], f["url"]))
-                await self.bot.send_message(self.bot.modlogs_channel, "📎 **Attachment**: {} uploaded to {}".format(message.author.mention, message.channel.mention), embed=embed2)
+                await self.bot.send_message(self.bot.adminlogs_channel, "📎 **Attachment**: {} uploaded to {}".format(message.author.mention, message.channel.mention), embed=embed2)
         if contains_invite_link:
-            await self.bot.send_message(self.bot.messagelogs_channel, "✉️ **Invite posted**: {} posted an invite link in {}\n------------------\n{}".format(message.author.mention, message.channel.mention, message.content))
-        if contains_misinformation_url_mention:
-            try:
-                await self.bot.delete_message(message)
-            except discord.errors.NotFound:
-                pass
-            try:
-                await self.bot.send_message(message.author, "Please read {}. This site may be misinterpreted as legitimate and cause users harm, therefore your message was automatically deleted.".format(self.bot.welcome_channel.mention), embed=embed)
-            except discord.errors.Forbidden:
-                pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
-            await self.bot.send_message(self.bot.messagelogs_channel, "**Bad site**: {} mentioned a blocked site in {} (message deleted)".format(message.author.mention, message.channel.mention), embed=embed)
+            await self.bot.send_message(self.bot.adminlogs_channel, "✉️ **Invite posted**: {} posted an invite link in {}\n------------------\n{}".format(message.author.mention, message.channel.mention, message.content))
         if contains_drama_alert:
-            #await self.bot.send_message(self.bot.messagelogs_channel, "✉️ **Potential drama/heated debate Warning**: {} posted a blacklisted word in {}\n------------------\n{}".format(message.author.mention, message.channel.mention, message.content))
-            await self.bot.send_message(self.bot.messagelogs_channel, "**Potential drama/heated debate Warning**: {} posted a blacklisted word in {}".format(message.author.mention, message.channel.mention), embed=embed)
-
-
-        # check for guide mirrors and post the actual link
-        urls = re.findall(r'(https?://\S+)', msg)
-        to_replace = []
-        for url in urls:
-            ps = urlparse(url)
-            if ps.netloc.startswith('3ds-guide.b4k.co'):
-                to_replace.append(ps._replace(netloc='3ds.guide').geturl())
-        if to_replace:
-            msg_user = "Please read {}. Guide mirrors may not be linked to, therefore your message was automatically deleted.\nPlease link to <https://3ds.guide> or <https://wiiu.guide> directly instead of mirrors of the sites.\n\nThe official equivalents of the links are:".format(self.bot.welcome_channel.mention)
-            for url in to_replace:
-                msg_user += '\n• ' + url
-            try:
-                await self.bot.delete_message(message)
-            except discord.errors.NotFound:
-                pass
-            try:
-                await self.bot.send_message(message.author, msg_user, embed=embed)
-            except discord.errors.Forbidden:
-                pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
-            await self.bot.send_message(self.bot.messagelogs_channel, "**Bad site**: {} mentioned a blocked guide mirror in {} (message deleted)".format(message.author.mention, message.channel.mention), embed=embed)
+            await self.bot.send_message(self.bot.adminlogs_channel, "**Potential drama/heated debate Warning**: {} posted a blacklisted word in {}".format(message.author.mention, message.channel.mention), embed=embed)
 
 
     async def keyword_search(self, message):
