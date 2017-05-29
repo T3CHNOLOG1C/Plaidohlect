@@ -206,10 +206,10 @@ class Err:
     errcodes = {
         # Nintendo 3DS
         '001-0803': 'Could not communicate with authentication server.',
-        '002-0102': 'System is banned by Nintendo. You cannot ask how to fix this issue here.',
+        '002-0102': 'System is banned by Nintendo.',
         '002-0119': 'System update required (outdated friends-module)',
         '002-0120': 'Title update required (outdated title version)',
-        '002-0121': 'Local friend code SEED has invalid signature.\n\nThis should not happen unless it is modified. The only use case for modifying this file is for system unbanning, so you cannot ask how to fix this issue here.',
+        '002-0121': 'Local friend code SEED has invalid signature.\n\nThis should not happen unless it is modified.',
         '003-2001': 'DNS error. If using a custom DNS server, make sure the settings are correct.',
         '005-4800': 'HTTP Status 500 (Internal Error), unknown cause(?). eShop servers might have issues.',
         '005-5602': 'Unable to connect to the eShop. This error is most likely the result of an incorrect region setting.\nMake sure your region is correctly set in System Settings. If you encounter this error after region-changing your system, make sure you followed all the steps properly.',
@@ -244,13 +244,6 @@ class Err:
         '022-2812': 'System is banned by Nintendo. You cannot ask how to fix this issue here.',
         '032-1820': 'Browser error that asks whether you want to go on to a potentially dangerous website. Can be bypassed by touching "yes".',
         '090-0212': 'Game is banned from Pokémon Global Link. This is most likely as a result of using altered or illegal save data.',
-        # Wii U
-        '160-0101': '"Generic error". Can happen when formatting a system with CBHC.',
-        '160-0102': 'Error in SLC/MLC or USB.',
-        '160-0103': '"The system memory is corrupted (MLC)."',
-        '160-0104': '"The system memory is corrupted (SLC)."',
-        '160-0105': 'USB storage corrupted?',
-        '199-9999': 'Usually occurs when trying to run an unsigned title without signature patches, or something unknown(?) is corrupted.',
     }
 
     switch_errcodes = {
@@ -297,7 +290,7 @@ class Err:
             embed = discord.Embed(title=err + (": Nintendo 3DS" if err[0] == "0" else ": Wii U"))
             embed.url = "http://www.nintendo.com/consumer/wfc/en_na/ds/results.jsp?error_code={}&system={}&locale=en_US".format(err, "3DS" if err[0] == "0" else "Wiiu")
             if err not in self.errcodes:
-                embed.description = "I don't know this one! Click the error code for details on Nintendo Support.\n\nIf you keep getting this issue and Nintendo Support does not help, or know how to fix it, you should report relevant details to <@78465448093417472> so it can be added to the bot."
+                embed.description = "I don't know this one! Click the error code for details on Nintendo Support.\n\nIf you keep getting this issue and Nintendo Support does not help, or know how to fix it, you should report relevant details to <@208370244207509504> so it can be added to the bot."
             else:
                 embed.description = self.errcodes[err]
                 embed.color = (Color(0xCE181E) if err[0] == "0" else Color(0x009AC7))
@@ -323,7 +316,7 @@ class Err:
                     embed.description = self.switch_errcodes[err][0]
                 else:
                     embed.color = embed.Empty
-                    embed.description = "I don't know this one! Click the error code for details on Nintendo Support.\n\nIf you keep getting this issue and Nintendo Support does not help, and know how to fix it, you should report relevant details to <@78465448093417472> so it can be added to the bot."
+                    embed.description = "I don't know this one! Click the error code for details on Nintendo Support.\n\nIf you keep getting this issue and Nintendo Support does not help, and know how to fix it, you should report relevant details to <@208370244207509504> so it can be added to the bot."
         else:
             err = err.strip()
             if err.startswith("0x"):
