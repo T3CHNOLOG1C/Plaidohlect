@@ -1,6 +1,6 @@
 import discord
 import os
-from time import sleep
+import time
 from discord.ext import commands
 from asyncio import wait_for
 from requests import get
@@ -88,7 +88,7 @@ class Update:
         if os.name != 'nt':  # Enforcing language on any system that isnt Windows
             os.popen(r'LC_ALL=C git fetch')
 
-            sleep(1)
+            time.sleep(1)
 
             # checks if local is out of date, needs the fetch first
             status = os.popen(r'LC_ALL=C git status -uno').read().strip()
