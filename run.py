@@ -198,7 +198,6 @@ async def on_ready():
 
 # loads extensions
 addons = [
-    'addons.assistance',
     'addons.blah',
     'addons.err',
     'addons.events',
