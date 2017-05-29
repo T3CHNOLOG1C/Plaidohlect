@@ -5,7 +5,7 @@
 # https://github.com/T3CHNOLOG1C/Playdohlect
 
 description = """
-Plaidohlect, the bot for the Secret Shack Service Discord!	
+Plaidohlect, the bot for the Secret Shack Service Discord!
 """
 
 # import dependencies
@@ -63,6 +63,7 @@ if not os.path.isfile("data/softbans.json"):
 prefix = ['.']
 bot = commands.Bot(command_prefix=prefix, description=description, pm_help=None)
 
+bot.actions = [] 
 # http://stackoverflow.com/questions/3411771/multiple-character-replace-with-python
 chars = "\\`*_<>#@:~"
 def escape_name(name):
