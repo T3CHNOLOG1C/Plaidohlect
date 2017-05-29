@@ -61,7 +61,7 @@ class Update:
         result = await wait_for(response, timeout=20)
 
         await self.bot.say(embed=result)
-                await self.bot.say("Do you want to restart? (yes/no)")
+            await self.bot.say("Do you want to restart? (yes/no)")
         answer = await self.bot.wait_for_message(timeout=10,
                                                  author=ctx.message.author)
 
