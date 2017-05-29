@@ -129,11 +129,6 @@ class Memes:
         await self._meme(ctx, "http://i.imgur.com/ZPMveve.jpg")
 
     @commands.command(pass_context=True, hidden=True)
-    async def xarec(self, ctx):
-        """Memes."""
-        await self._meme(ctx, "http://i.imgur.com/A59RbRT.png")
-
-    @commands.command(pass_context=True, hidden=True)
     async def clap(self, ctx):
         """Memes."""
         await self._meme(ctx, "http://i.imgur.com/UYbIZYs.gifv")
