@@ -244,11 +244,11 @@ class Update:
             os.popen(r'LC_ALL=C git reset --hard')
             os.popen(r'LC_ALL=C git stash')
 
-            sleep(1)
+            time.sleep(1)
 
             os.popen(r'LC_ALL=C git pull')
 
-            sleep(1)
+            time.sleep(1)
 
             # checks if local is out of date, needs the fetch first
             status = os.popen(r'LC_ALL=C git status -uno').read().strip()
