@@ -61,7 +61,28 @@ class Update:
         result = await wait_for(response, timeout=20)
 
         await self.bot.say(embed=result)
+                await self.bot.say("Do you want to restart? (yes/no)")
+        answer = await self.bot.wait_for_message(timeout=10,
+                                                 author=ctx.message.author)
 
+        if answer == None:
+            await self.bot.say("Canceling restart...")
+
+        elif answer.content.lower().strip() == "yes":
+            await self.bot.say("Restarting now.")
+            print("Restarting Red...")
+            time.sleep(1)
+            if os.getcwd() in sys.argv[0]:
+                cd = "{}".format(" ".join(sys.argv))
+            else:
+                cd = "{}/run.py {}".format(os.getcwd(), sys.argv[1])
+            child = subprocess.Popen(["{} {}".format(sys.executable, cd)],shell=True,stdout=subprocess.PIPE)
+            output,error = child.communicate()
+            print("Output\n{}\nError\n{}\n".format(output, error))
+            sys.exit()
+
+        else:
+            await self.bot.say("Canceling restart...")
     def _get_behind(self):
 
         if os.name != 'nt':  # Enforcing language on any system that isnt Windows
