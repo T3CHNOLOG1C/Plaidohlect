@@ -206,6 +206,7 @@ addons = [
     'addons.mod_warn',
     'addons.mod',
     'addons.rules',
+    'addons.update',
 ]
 
 failed_addons = []
