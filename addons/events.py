@@ -16,15 +16,81 @@ class Events:
         self.bot = bot
         print('Addon "{}" loaded'.format(self.__class__.__name__))
 
+    # don't add spaces or dashes to words
+    piracy_tools = (
+        'freeshop',
+        'frepshop',
+        'fr3eshop',
+        'fr33shop',
+        'fre3shop',
+        'ciangel',
+        'ciaangel',
+        'tikdevil',
+        'tikshop',
+        'fr335h0p',
+        'fr€€shop',
+        'fr€€sh0p',
+        'fr3esh0p',
+        'fr//shop',
+        'fr//sh0p',
+        'free$hop',
+        'fr$$hop',
+        'friishop',
+        'fr££shop',
+        'fr£€shop',
+        'fr£shop',
+        'fr£eshop',
+        'fre£shop',
+        'fr€£shop',
+        'threeshop',
+        'thr33shop',
+        'thr££shop',
+        'thr£eshop',
+        'thr33shop',
+        'fr33sh0p',
+        'fresh0p',
+        'fr$shop',
+        'freesho',
+        'freeshoandp',
+        'freeshothenp',
+        'freeeshop',
+        'makiedition',
+        'makiversion',
+        'makifbi',
+        'utikdownloadhelper',
+        'wiiuusbhelper',
+        'w11uusbh3lper'
+        'funkii',
+        'funk11',
+        'freeshp',
+        'frees.hop',
+        'fr*eeshop',
+        'frappeshop',
+        'frickshop',
+        'usbheler',
+        'frishop',
+        'eshopfree',
+        'erappêshop',
+        'fręëšhøp',
+        'feeshop',
+        'fbimod',
+        'freakshop',
+        'fleashop',
+        'ciangle',
+        'fieashop',
     )
 
+    # terms that should cause a notice but not auto-delete
+    piracy_tools_alert = (
+        'freshop',
+    )
 
     drama_alert = (
         'attackhelicopter',
         'gender',
         'faggot',
-        'retarded',
-        'cunt',
+        # 'retarded',
+        # 'cunt',
         'tranny',
         'nigger',
         'incest',
@@ -66,8 +132,11 @@ class Events:
         msg_no_separators = re.sub('[ -]', '', msg)
 
         contains_invite_link = "discordapp.com/invite" in msg or "discord.gg" in msg or "join.skype.com" in msg
-
-
+        contains_piracy_site_mention = any(x in msg for x in ('3dsiso', '3dschaos', 'wiiuiso', 'madloader', 'darkumbra',))
+        contains_piracy_url_mention = any(x in msg for x in ('3ds.titlekeys', 'wiiu.titlekeys', 'titlekeys.com', '95.183.50.10',))
+        contains_piracy_tool_mention = any(x in msg_no_separators for x in self.piracy_tools)
+        contains_piracy_tool_alert_mention = any(x in msg_no_separators for x in self.piracy_tools_alert)
+        contains_piracy_site_mention_indirect = any(x in msg for x in ('iso site', 'chaos site',))
         contains_misinformation_url_mention = any(x in msg_no_separators for x in ('gudie.racklab', 'guide.racklab', 'gudieracklab', 'guideracklab', 'lyricly.github.io', 'lyriclygithub', 'strawpoii',))
         # contains_guide_mirror_mention = any(x in msg for x in ('3ds-guide.b4k.co',))
         contains_drama_alert = any(x in msg_no_separators for x in self.drama_alert)
@@ -91,7 +160,39 @@ class Events:
         if contains_drama_alert:
             #await self.bot.send_message(self.bot.messagelogs_channel, "✉️ **Potential drama/heated debate Warning**: {} posted a blacklisted word in {}\n------------------\n{}".format(message.author.mention, message.channel.mention, message.content))
             await self.bot.send_message(self.bot.messagelogs_channel, "**Potential drama/heated debate Warning**: {} posted a blacklisted word in {}".format(message.author.mention, message.channel.mention), embed=embed)
-
+        if contains_piracy_tool_mention:
+            try:
+                await self.bot.delete_message(message)
+            except discord.errors.NotFound:
+                pass
+            try:
+                await self.bot.send_message(message.author, "Please read {}. You cannot mention tools used for piracy, therefore your message was automatically deleted.".format(self.bot.welcome_channel.mention), embed=embed)
+            except discord.errors.Forbidden:
+                pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
+            await self.bot.send_message(self.bot.messagelogs_channel, "**Bad tool**: {} mentioned a piracy tool in {} (message deleted)".format(message.author.mention, message.channel.mention), embed=embed)
+        if contains_piracy_tool_alert_mention:
+            await self.bot.send_message(self.bot.messagelogs_channel, "**Bad tool**: {} likely mentioned a piracy tool in {}".format(message.author.mention, message.channel.mention), embed=embed)
+        if contains_piracy_site_mention or contains_piracy_url_mention:
+            try:
+                await self.bot.delete_message(message)
+            except discord.errors.NotFound:
+                pass
+            try:
+                await self.bot.send_message(message.author, "Please read {}. You cannot mention sites used for piracy directly, therefore your message was automatically deleted.".format(self.bot.welcome_channel.mention), embed=embed)
+            except discord.errors.Forbidden:
+                pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
+            await self.bot.send_message(self.bot.messagelogs_channel, "**Bad site**: {} mentioned a piracy site directly in {} (message deleted)".format(message.author.mention, message.channel.mention), embed=embed)
+        elif contains_piracy_site_mention_indirect:
+            if is_help_channel:
+                try:
+                    await self.bot.delete_message(message)
+                except discord.errors.NotFound:
+                    pass
+                try:
+                    await self.bot.send_message(message.author, "Please read {}. You cannot mention sites used for piracy in the help-and-questions channels directly or indirectly, therefore your message was automatically deleted.".format(self.bot.welcome_channel.mention), embed=embed)
+                except discord.errors.Forbidden:
+                    pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
+            await self.bot.send_message(self.bot.messagelogs_channel, "**Bad site**: {} mentioned a piracy site indirectly in {}{}".format(message.author.mention, message.channel.mention, " (message deleted)" if is_help_channel else ""), embed=embed)
 
         # check for guide mirrors and post the actual link
         urls = re.findall(r'(https?://\S+)', msg)
@@ -113,6 +214,27 @@ class Events:
             except discord.errors.Forbidden:
                 pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
             await self.bot.send_message(self.bot.messagelogs_channel, "**Bad site**: {} mentioned a blocked guide mirror in {} (message deleted)".format(message.author.mention, message.channel.mention), embed=embed)
+
+
+    async def keyword_search(self, message):
+        msg = ''.join(char for char in message.content.lower() if char in printable)
+        if "wiiu" in message.channel.name and "download" in msg and "update" in msg and "manag" in msg:  # intentional typo in manage
+            embed = discord.Embed(description="A failed update in Download Management does not mean there is an update and the system is trying to download it. This means your blocking method (DNS etc.) is working and the system can't check for an update.", color=discord.Color(0x009AC7))
+            await self.bot.send_message(message.channel, message.author.mention, embed=embed)
+        # search for terms that might indicate a question meant for the help channels
+        help_embed = discord.Embed(description="Hello! If you are looking for help with setting up hacks for your 3DS or Wii U system, please ask your question in one of the assistance channels.\n\nFor 3DS, there is <#196635695958196224> or <#247557068490276864>. Ask in one of them.\n\nFor Wii U, go to <#279783073497874442>.\n\nThank you for stopping by!", color=discord.Color.green())
+        help_embed.set_footer(text="This auto-response is under development. If you did not ask about the above, you don't need to do anything.")
+        if message.author.id not in self.help_notice_anti_repeat:
+            if message.channel.name == "hacking-general":
+                if all(x in msg for x in ('help ', 'me',)):
+                    await self.bot.send_message(message.channel, message.author.mention, embed=help_embed)
+                    await self.bot.send_message(self.bot.mods_channel, "Auto-response test in {}".format(message.channel.mention))
+                    self.help_notice_anti_repeat.append(message.author.id)
+                    await asyncio.sleep(120)
+                    try:
+                        self.help_notice_anti_repeat.remove(message.author.id)
+                    except ValueError:
+                        pass
 
     async def user_spam_check(self, message):
         if message.author.id not in self.user_antispam:
