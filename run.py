@@ -142,11 +142,6 @@ async def on_ready():
             "Owner": bot.owner_role,
         }
 
-        bot.helper_roles = {
-            "3DS": bot.onduty3ds_role,
-            "WiiU": bot.ondutywiiu_role,
-        }
-
         # load timebans
         with open("data/timebans.json", "r") as f:
             timebans = json.load(f)
