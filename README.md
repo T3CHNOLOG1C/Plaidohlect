@@ -11,6 +11,7 @@ Although it is open source, this bot is not really designed to be used in other 
 ## Requirements:
 * Python 3.5 or above
 * [discord.py](https://github.com/Rapptz/discord.py). Be sure to use the latest version for best results.
+* `pip install requests`
 
 ### Music Bot Requirements
 
