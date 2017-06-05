@@ -12,7 +12,7 @@ class botupdate:
     async def pull(self, ctx):
        """Pull from GitHub (Owner Only)"""
     call(['git', 'pull'])
-    await bot.send_message(ctx.message.channel, "Changes pulled from Github :ok_hand:".format(ctx.command.name))
+    self.bot.say("Changes pulled from GitHub :ok_hand:")
 
 def setup(bot):
     bot.add_cog(botupdate(bot))
