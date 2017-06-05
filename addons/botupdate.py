@@ -3,7 +3,7 @@ from discord.ext import commands
 from sys import argv
 from subprocess import call
 
-Class botupdate:
+class botupdate:
     """
     Bot Updating Commands (Owners Only)
     """
