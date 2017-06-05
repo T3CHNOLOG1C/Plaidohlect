@@ -189,6 +189,7 @@ async def on_ready():
 # loads extensions
 addons = [
     'addons.blah',
+    'addons.botupdate',
     'addons.err',
     'addons.events',
     'addons.extras',
