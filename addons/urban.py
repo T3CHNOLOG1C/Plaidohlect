@@ -51,7 +51,7 @@ class Urban:
   #              page = d.text.replace("'", "\"")
    #             date = slicer(page,">{}</a>".format(author),"</div><div class=\"def-footer\">",False)
     #            return date
-            embed = discord.Embed(title="__Definition of {}__\n\n".format(word), colour=discord.Color.orange())
+            embed = discord.Embed(title="Definition of {}\n\n".format(word), colour=discord.Color.orange())
             embed.set_thumbnail(url="http://i.imgur.com/B1gZbQz.png")
             embed.url = permalink
             embed.description = definition + "\n"
