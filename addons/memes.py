@@ -220,12 +220,10 @@ class Memes:
         await self._meme(ctx, "http://i.imgur.com/hzuXOHP.png")
 
     @commands.command(pass_context=True, hidden=True)
-
-    async def birds(self, ctx):
-        """TALK TO ME DAMNIT!!!"""
-        await self._meme(ctx, "http://i.imgur.com/fVAx5oh.png")
-
-
+    async def birds(self, ctx):
+        """Memes."""
+        await self._meme(ctx, "http://i.imgur.com/fVAx5oh.png")
+		
 # Load the extension
 def setup(bot):
     bot.add_cog(Memes(bot))
