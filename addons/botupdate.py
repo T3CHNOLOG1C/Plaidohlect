@@ -19,7 +19,6 @@ class botupdate:
         call(['git', 'pull'])
         await self.bot.say("Changes pulled from GitHub, Restarting...")
         await self.bot.close()
-        return
 
 def setup(bot):
     bot.add_cog(botupdate(bot))
