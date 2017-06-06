@@ -1,8 +1,8 @@
+from subprocess import call
 import discord
 import os
 from discord.ext import commands
 from sys import argv
-from subprocess import call
 
 class botupdate:
     """
@@ -17,7 +17,9 @@ class botupdate:
     async def pull(self, ctx):
         """Pull from GitHub (Owner Only)"""
         call(['git', 'pull'])
-        await self.bot.say("Changes pulled from GitHub :ok_hand:")
+        await self.bot.say("Changes pulled from GitHub, Restarting...")
+        await self.bot.close()
+        return
 
 def setup(bot):
     bot.add_cog(botupdate(bot))
