@@ -154,7 +154,7 @@ class Events:
         self.bot.loop.create_task(self.channel_spam_check(message))
 
     async def on_message_edit(self, message_before, message_after):
-        await self.bot.wait_until_all_ready(
+        await self.bot.wait_until_all_ready()
         await self.scan_message(message_after, is_edit=True)
 
 def setup(bot):
