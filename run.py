@@ -168,7 +168,7 @@ async def on_ready():
             msg += "\n\nSome addons failed to load:\n"
             for f in failed_addons:
                 msg += "\n{}: `{}: {}`".format(*f)
-        await bot.send_message(bot.helpers_channel, msg)
+        await bot.send_message(bot.automod_channel, msg)
 
         # softban check
         with open("data/softbans.json", "r") as f:
