@@ -54,8 +54,9 @@ class Urban:
             embed = discord.Embed(title="Definition of {}\n\n".format(word), colour=discord.Color.orange())
             embed.set_thumbnail(url="http://i.imgur.com/B1gZbQz.png")
             embed.url = permalink
-            embed.description = definition + "\n"
-            embed.add_field(name="__Example(s) :__", value=examples + "\n\n", inline=False)
+            embed.description = definition.replace("\\n", "\n") + "\n"
+            if examples != "":
+                embed.add_field(name="__Example(s) :__", value=examples.replace("\\n", "\n"), inline=False)
             embed.add_field(name="Upvotes", value="👍 **{}**".format(thumbsup), inline=True)
             embed.add_field(name="Downvotes", value="👎 **{}**\n\n".format(thumbsdown), inline=True)
             embed.set_footer(text="Defined by {0}".format(author))
