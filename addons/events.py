@@ -113,24 +113,6 @@ class Events:
                 self.channel_antispam.pop(message.channel.id)
         except KeyError:
             pass  # if the array doesn't exist, don't raise an error
-"""
-    async def on_message(self, message):
-        if message.channel.is_private:
-            return
-        if message.author.name == "GitHub" and message.author.discriminator == "0000":
-            await self.bot.send_message(self.bot.helpers_channel, "Automatically pulling changes!")
-            call(['git', 'pull'])
-            await self.bot.close()
-            return
-        await self.bot.wait_until_all_ready()
-        await self.scan_message(message)
-        await self.keyword_search(message)
-        self.bot.loop.create_task(self.user_spam_check(message))
-        self.bot.loop.create_task(self.channel_spam_check(message))
 
-    async def on_message_edit(self, message_before, message_after):
-        await self.bot.wait_until_all_ready()
-        await self.scan_message(message_after, is_edit=True)
-"""
 def setup(bot):
     bot.add_cog(Events(bot))
