@@ -46,7 +46,7 @@ class Loop:
                             ban[1][2] = True
                             await self.bot.send_message(self.bot.mods_channel, "**Note**: {} will be unbanned in {} minutes.".format(self.bot.escape_name(ban[1][0]), ((ban[1][1] - timestamp).seconds // 60) + 1))
                 if timestamp.minute == 0 and timestamp.hour != self.last_hour:
-                    await self.bot.send_message(self.bot.helpers_channel, "{} has {:,} members at this hour!".format(self.bot.server.name, self.bot.server.member_count))
+                    await self.bot.send_message(self.bot.automod_channel, "{} has {:,} members at this hour!".format(self.bot.server.name, self.bot.server.member_count))
                     self.last_hour = timestamp.hour
             except Exception as e:
                 print('Ignoring exception in start_update_loop', file=sys.stderr)
