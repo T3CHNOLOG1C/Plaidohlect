@@ -15,7 +15,7 @@ class botupdate:
     @commands.has_permissions(administrator=True)
     @commands.command(pass_context=True, name="pull")
     async def pull(self, ctx):
-       """Pull from GitHub (Owner Only)"""
+        """Pull from GitHub (Owner Only)"""
         call(['git', 'pull'])
         await self.bot.say("Changes pulled from GitHub :ok_hand:")
 
