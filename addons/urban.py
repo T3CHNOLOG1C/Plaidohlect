@@ -57,10 +57,16 @@ class Urban:
             embed.description = definition.replace("\\n", "\n") + "\n"
             if examples != "":
                 embed.add_field(name="__Example(s) :__", value=examples.replace("\\n", "\n"), inline=False)
+                textExamples = examples
+            else:
+                textExamples = "None"
             embed.add_field(name="Upvotes", value="👍 **{}**".format(thumbsup), inline=True)
             embed.add_field(name="Downvotes", value="👎 **{}**\n\n".format(thumbsdown), inline=True)
             embed.set_footer(text="Defined by {0}".format(author))
-            await self.bot.say(embed=embed)
+            try:
+                await self.bot.say(embed=embed)
+            except:
+                await self.bot.say("**__Definition of {0}__**__ ({1})__\n\n\n".format(word, permalink) + definition.replace("\\n", "\n") + "\n\n" + "__Example(s) :__\n\n" + textExamples.replace("\\n", "\n") + "\n\n" + thumbsup + "👍\n\n" + thumbsdown + "👎\n\n\n\n" + "*Defined by* " + author)
 
 #Load the extension
 def setup(bot):
