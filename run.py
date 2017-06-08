@@ -201,7 +201,6 @@ addons = [
     'addons.mod_staff',
     'addons.mod_warn',
     'addons.mod',
-    'addons.rules',
     'addons.update',
     'addons.urban',
 ]
