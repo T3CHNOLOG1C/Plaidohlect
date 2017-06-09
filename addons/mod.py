@@ -4,6 +4,7 @@ import re
 from discord.ext import commands
 from subprocess import call
 from sys import argv
+from os import execv
 
 class Mod:
     """
@@ -40,15 +41,20 @@ class Mod:
         await self.bot.say("👋 Bye bye!")
         await self.bot.close()
 
-   # @commands.has_permissions(manage_server=True)
-   # @commands.command(hidden=True)
-   # async def pull(self, *gamename):
-   #     """Pull new changes from GitHub and restart."""
-   #     await self.bot.say("Pulling changes...")
-   #     call(['git', 'pull'])
-   #     await self.bot.say("👋 Restarting bot!")
-   #     await self.bot.close()
 
+    @commands.command(pass_context=True, hidden=True)
+    async def pull(self, ctx):
+        """Pull new changes from GitHub and restart."""
+        dev = ctx.message.author
+        if self.bot.botdev_role in dev.roles:
+            await self.bot.say("`Pulling changes...`")
+            call(["git", "pull"])
+            await self.bot.say("Pulling should've worked...")
+            await self.bot.say("Pulled changes! Restarting bot...")
+            execv("./run.py", argv)
+        else:
+            await self.bot.say("Only bot devs can use this command")
+            
     @commands.has_permissions(manage_server=True)
     @commands.command(pass_context=True, hidden=True)
     async def userinfo(self, ctx, user):
