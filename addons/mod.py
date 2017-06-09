@@ -49,7 +49,6 @@ class Mod:
         if self.bot.botdev_role in dev.roles:
             await self.bot.say("`Pulling changes...`")
             call(["git", "pull"])
-            await self.bot.say("Pulling should've worked...")
             await self.bot.say("Pulled changes! Restarting bot...")
             execv("./run.py", argv)
         else:
