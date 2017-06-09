@@ -134,6 +134,7 @@ async def on_ready():
         bot.noembed_role = discord.utils.get(server.roles, name="No-Embed")
         bot.nsfw_role = discord.utils.get(server.roles, name="nsfw")
         bot.everyone_role = server.default_role
+       
 
         bot.staff_ranks = {
             "HalfOP": bot.halfop_role,
@@ -188,7 +189,6 @@ async def on_ready():
 # loads extensions
 addons = [
     'addons.blah',
-    'addons.botupdate',
     'addons.err',
     'addons.events',
     'addons.extras',
