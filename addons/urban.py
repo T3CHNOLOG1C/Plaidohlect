@@ -12,7 +12,7 @@ class Urban:
         print('Addon "{}" loaded'.format(self.__class__.__name__))
 
     @commands.command()
-    async def urban(self,term=None):
+    async def urban(self, *, term=None):
         """Lookup a term on Urban Dictionnary. If no term is specified, returns a random word / definition"""
         def slicer(str,sep1:str,sep2:str=None,select=True): #Slices a defined part of a string
             if select is True:
