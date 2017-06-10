@@ -32,13 +32,8 @@ class Urban:
             r = requests.get("http://api.urbandictionary.com/v0/define?term={}".format(term))
         
         source = r.text
-        if source == "{\"tags\":[],\"result_type\":\"no_results\",\"list\":[],\"sounds\":[]}" : #aka error 404
-            embed = discord.Embed(title="¯\_(ツ)_/¯", colour=discord.Color.orange())
-            embed.url = "http://www.urbandictionary.com/define.php?term={}".format(term)
-            embed.description = "\nThere aren't any definitions for *{0}* yet.\n\n[Can you define it?](http://www.urbandictionary.com/add.php?word={0})\n".format(term)
-            embed.set_footer(text="Error 404", icon_url="http://i.imgur.com/w6TtWHK.png")
-            await self.bot.say(embed=embed)
-        else:
+
+        try:
             word = slicer(source,"\"word\":\"","\",\"defid\":")
             definition = slicer(source,"\"definition\":\"","\",\"permalink\":\"").replace("\\r\\n", "\n")
             examples = slicer(source,"\"example\":\"","\",\"thumbs_down\":").replace("\\r\\n", "\n")
@@ -67,7 +62,15 @@ class Urban:
                 await self.bot.say(embed=embed)
             except:
                 await self.bot.say("**__Definition of {0}__**__ ({1})__\n\n\n".format(word, permalink) + definition.replace("\\n", "\n") + "\n\n" + "__Example(s) :__\n\n" + textExamples.replace("\\n", "\n") + "\n\n" + thumbsup + "👍\n\n" + thumbsdown + "👎\n\n\n\n" + "*Defined by* " + author)
-
+        except:
+            try:
+                embed = discord.Embed(title="¯\_(ツ)_/¯", colour=discord.Color.orange())
+                embed.url = "http://www.urbandictionary.com/define.php?term={}".format(term.replace(" ", "%20"))
+                embed.description = "\nThere aren't any definitions for *{0}* yet.\n\n[Can you define it?](http://www.urbandictionary.com/add.php?word={1})\n".format(term, term.replace(" ", "%20"))
+                embed.set_footer(text="Error 404", icon_url="http://i.imgur.com/w6TtWHK.png")
+                await self.bot.say(embed=embed)
+            except:
+                await self.bot.say("¯\_(ツ)_/¯\n\n\n" + "There are no definitions for *{}* yet\n\n".format(term) + "Can you define it ?\n( http://www.urbandictionary.com/add.php?word={} )".format(term.replace(" ", "%20")))
 #Load the extension
 def setup(bot):
     bot.add_cog(Urban(bot))
