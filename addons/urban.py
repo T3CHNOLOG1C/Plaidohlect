@@ -36,6 +36,9 @@ class Urban:
         try:
             word = slicer(source,"\"word\":\"","\",\"defid\":")
             definition = slicer(source,"\"definition\":\"","\",\"permalink\":\"").replace("\\r\\n", "\n")
+            chars = ['[', ']']
+            for c in chars:
+                definition = definition.replace(c, '')
             examples = slicer(source,"\"example\":\"","\",\"thumbs_down\":").replace("\\r\\n", "\n")
             author = slicer(source,"\"author\":\"","\",\"word\":\"")
             permalink = slicer(source,"\"permalink\":\"","\",\"thumbs_up\":")
