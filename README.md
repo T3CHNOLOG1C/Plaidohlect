@@ -8,18 +8,19 @@ Although it is open source, this bot is not really designed to be used in other 
 `run.sh` to run the whole bot, music bot included.
 
 `run.py` to run the bot, but without the music bot.
+
 ## Requirements:
+
 * Python 3.5 or above
-* [discord.py](https://github.com/Rapptz/discord.py). Be sure to use the latest version for best results.
-* `pip install requests`
+* `pip install -r requirements.txt`
 
 ### Music Bot Requirements
 
 [Listed on the official wiki](https://github.com/Just-Some-Bots/MusicBot/wiki)
 
-##### Install these with pip :
-- discord.py[voice] ~= 0.12.0
-- youtube_dl
-- cffi==1.6.0
 
-Credits to [SexualRhinoceros](https://github.com/just-some-bots/MusicBot) for the music bot!
+## Credits :
+
+- Rapptz for [discord.py](https://github.com/Rapptz/discord.py)
+- SexualRhinoceros for the [Music Bot](https://github.com/just-some-bots/MusicBot)
+
