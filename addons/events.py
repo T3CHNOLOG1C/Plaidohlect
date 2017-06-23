@@ -51,31 +51,6 @@ class Events:
         with open("data/restrictions.json", "w") as f:
             json.dump(rsts, f)
 
-    async def scan_message(self, message, is_edit=False):
-        embed = discord.Embed()
-        embed.description = message.content
-        if message.author.id in self.bot.watching:
-            msg = "{} in {}".format(message.author.mention, message.channel.mention)
-            if is_edit:
-                msg += " (edited)"
-            await self.bot.send_message(self.bot.watchlogs_channel, msg, embed=embed)
-        is_help_channel = "assistance" in message.channel.name
-        msg = ''.join(char for char in message.content.lower() if char in printable)
-        msg_no_separators = re.sub('[ -]', '', msg)
-
-        contains_invite_link = "discordapp.com/invite" in msg or "discord.gg" in msg or "join.skype.com" in msg
-        contains_drama_alert = any(x in msg_no_separators for x in self.drama_alert)
-
-        for f in message.attachments:
-            if not f["filename"].lower().endswith(self.ignored_file_extensions):
-                embed2 = discord.Embed(description="Size: {}\nDownload: [{}]({})".format(f["size"], f["filename"], f["url"]))
-                await self.bot.send_message(self.bot.adminlogs_channel, "📎 **Attachment**: {} uploaded to {}".format(message.author.mention, message.channel.mention), embed=embed2)
-        if contains_invite_link:
-            await self.bot.send_message(self.bot.adminlogs_channel, "✉️ **Invite posted**: {} posted an invite link in {}\n------------------\n{}".format(message.author.mention, message.channel.mention, message.content))
-        if contains_drama_alert:
-            await self.bot.send_message(self.bot.adminlogs_channel, "**Potential drama/heated debate Warning**: {} posted a blacklisted word in {}".format(message.author.mention, message.channel.mention), embed=embed)
-
-
     async def user_spam_check(self, message):
         if message.author.id not in self.user_antispam:
             self.user_antispam[message.author.id] = []
@@ -138,28 +113,6 @@ class Events:
                 self.channel_antispam.pop(message.channel.id)
         except KeyError:
             pass  # if the array doesn't exist, don't raise an error
-
-    async def on_message(self, message):
-        if message.channel.is_private:
-            return
-        if message.author.name == "GitHub" and message.author.discriminator == "0000":
-            await self.bot.send_message(self.bot.helpers_channel, "Automatically pulling changes!")
-            call(['git', 'pull'])
-            await self.bot.close()
-            return
-        await self.bot.wait_until_all_ready()
-        if message.author == self.bot.server.me or self.bot.staff_role in message.author.roles or message.channel == self.bot.helpers_channel:  # don't process messages by the bot or staff or in the helpers channel
-            return
-        await self.scan_message(message)
-        await self.keyword_search(message)
-        self.bot.loop.create_task(self.user_spam_check(message))
-        self.bot.loop.create_task(self.channel_spam_check(message))
-
-    async def on_message_edit(self, message_before, message_after):
-        await self.bot.wait_until_all_ready()
-        if message_after.author == self.bot.server.me or self.bot.staff_role in message_after.author.roles or message_after.channel == self.bot.helpers_channel:  # don't process messages by the bot or staff or in the helpers channel
-            return
-        await self.scan_message(message_after, is_edit=True)
 
 def setup(bot):
     bot.add_cog(Events(bot))

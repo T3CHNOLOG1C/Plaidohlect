@@ -107,6 +107,10 @@ class Memes:
     async def rip(self, ctx):
         """Memes."""
         await self._meme(ctx, "Press F to pay respects.")
+        async for m in self.bot.logs_from(ctx.message.channel, limit=1):
+            message = m
+        await self.bot.add_reaction(message, "🇫")
+
 
     @commands.command(pass_context=True, hidden=True)
     async def permabrocked(self, ctx):
@@ -127,6 +131,11 @@ class Memes:
     async def lucina2(self, ctx):
         """Memes."""
         await self._meme(ctx, "http://i.imgur.com/ZPMveve.jpg")
+
+    @commands.command(pass_context=True, hidden=True)
+    async def xarec(self, ctx):
+        """Memes."""
+        await self._meme(ctx, "http://i.imgur.com/A59RbRT.png")
 
     @commands.command(pass_context=True, hidden=True)
     async def clap(self, ctx):
@@ -208,12 +217,17 @@ class Memes:
     async def whatisr(self, ctx):
         """MEMES?"""
         await self._meme(ctx, "http://i.imgur.com/Z8HhfzJ.jpg")
-        
+
+    @commands.command(pass_context=True, hidden=True)
+    async def brickdurr(self, ctx):
+        """Memes."""
+        await self._meme(ctx, "http://i.imgur.com/hzuXOHP.png")
+
     @commands.command(pass_context=True, hidden=True)
     async def birds(self, ctx):
-        """TALK TO ME DAMNIT!!!"""
+        """Memes."""
         await self._meme(ctx, "http://i.imgur.com/fVAx5oh.png")
-                
+		
 # Load the extension
 def setup(bot):
     bot.add_cog(Memes(bot))
