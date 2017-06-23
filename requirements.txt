@@ -1,0 +1,6 @@
+discord.py
+discord.py[voice] ~= 0.12.0
+requests
+youtube_dl
+cffi==1.6.0
+wikipedia

@@ -133,7 +133,9 @@ async def on_ready():
         bot.nohelp_role = discord.utils.get(server.roles, name="No-Help")
         bot.noembed_role = discord.utils.get(server.roles, name="No-Embed")
         bot.nsfw_role = discord.utils.get(server.roles, name="nsfw")
+        bot.botdev_role = discord.utils.get(server.roles, name="#botdev")
         bot.everyone_role = server.default_role
+       
 
         bot.staff_ranks = {
             "HalfOP": bot.halfop_role,
@@ -141,6 +143,7 @@ async def on_ready():
             "SuperOP": bot.superop_role,
             "Owner": bot.owner_role,
         }
+
 
         # load timebans
         with open("data/timebans.json", "r") as f:
@@ -167,7 +170,6 @@ async def on_ready():
             msg += "\n\nSome addons failed to load:\n"
             for f in failed_addons:
                 msg += "\n{}: `{}: {}`".format(*f)
-        await bot.send_message(bot.helpers_channel, msg)
 
         # softban check
         with open("data/softbans.json", "r") as f:
@@ -200,7 +202,8 @@ addons = [
     'addons.mod_staff',
     'addons.mod_warn',
     'addons.mod',
-    'addons.rules',
+    'addons.onlinesearch',
+    'addons.update',
 ]
 
 failed_addons = []
