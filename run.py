@@ -202,8 +202,8 @@ addons = [
     'addons.mod_staff',
     'addons.mod_warn',
     'addons.mod',
+    'addons.onlinesearch',
     'addons.update',
-    'addons.urban',
 ]
 
 failed_addons = []

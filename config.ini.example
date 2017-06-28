@@ -1,2 +1,6 @@
 [Main]
-token = <token for Discord bot>
+token = MjA3MDgwODM4ODY3NzE0MDU4.DBT_0w.UOQjmibuINcyqNcAmhAlzZ-lY0Q
+
+[Google]
+API_Key = AIzaSyBP9umVEDdoecwHvjXc0mbhqTPGBRgB94U
+;get one here https://console.developers.google.com/project/_/apiui/credential
