@@ -1,0 +1,6 @@
+[Main]
+token = <token here>
+
+[Google]
+API_Key = <API Key here>
+;get one here https://console.developers.google.com/project/_/apiui/credential
