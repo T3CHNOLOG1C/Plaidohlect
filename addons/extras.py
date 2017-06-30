@@ -24,7 +24,7 @@ class Extras:
         embed = discord.Embed(title="Plaidohlect", color=discord.Color.orange())
         embed.set_author(name="T3CHNOLOG1C, Sentry, Ali365Dash and Hydraxis")
         embed.set_thumbnail(url="http://i.imgur.com/6C2VD4Z.jpg")
-        embed.url = "https://github.com/T3CHNOLOG1C/Playdohlect"
+        embed.url = "https://github.com/T3CHNOLOG1C/Plaidohlect"
         embed.description = "Plaidohlect, the Secret Shack Service bot!"
         await self.bot.say("", embed=embed)
 

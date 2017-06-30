@@ -34,7 +34,7 @@ class KickBan:
                 pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
             self.bot.actions.append("uk:"+member.id)
             await self.bot.kick(member)
-            await self.bot.say("{} is now gone. 👌".format(self.bot.escape_name(member)))
+            await self.bot.say("I've given {} the 👢.".format(self.bot.escape_name(member)))
             msg = "👢 **Kick**: {} kicked {} | {}#{}\n🏷 __User ID__: {}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
             if reason != "":
                 msg += "\n✏️ __Reason__: " + reason
@@ -63,7 +63,7 @@ class KickBan:
                 pass  # don't fail in case user has DMs disabled for this server, or blocked the bot
             self.bot.actions.append("ub:"+member.id)
             await self.bot.ban(member, 1)
-            await self.bot.say("{} is now b&. 👍".format(self.bot.escape_name(member)))
+            await self.bot.say("{} has been hit with the pwnhammer. 👍".format(self.bot.escape_name(member)))
             msg = "⛔ **Ban**: {} banned {} | {}#{}\n🏷 __User ID__: {}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
             if reason != "":
                 msg += "\n✏️ __Reason__: " + reason
@@ -84,7 +84,7 @@ class KickBan:
                 return
             self.bot.actions.append("ub:"+member.id)
             await self.bot.ban(member, 1)
-            await self.bot.say("{} is now b&. 👍".format(self.bot.escape_name(member)))
+            await self.bot.say("{} has been hit with the pwnhammer. 👍".format(self.bot.escape_name(member)))
             msg = "⛔ **Silent ban**: {} banned {} | {}#{}\n🏷 __User ID__: {}".format(ctx.message.author.mention, member.mention, self.bot.escape_name(member.name), member.discriminator, member.id)
             if reason != "":
                 msg += "\n✏️ __Reason__: " + reason
