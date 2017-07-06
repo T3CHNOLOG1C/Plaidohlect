@@ -108,7 +108,7 @@ class OnlineSearch:
 
         term = capwords(term)
 
-        if term.lower() == "kai" or term.lower == "mitchy":
+        if term.lower() == "kai" or term.lower() == "mitchy":
             kai = await self.bot.get_user_info("272908611255271425")
             try:
                 embed = discord.Embed(title="Kai", colour=discord.Color.orange())
