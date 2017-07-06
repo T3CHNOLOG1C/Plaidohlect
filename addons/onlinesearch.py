@@ -176,23 +176,52 @@ class OnlineSearch:
                         js = js["itemListElement"][0]["result"]
 
                         name = js["name"]
-                        briefDescription = js["description"]
-                        detailedDescription = js["detailedDescription"]["articleBody"]
-                        if detailedDescription[-1] == " ":
-                            detailedDescription = detailedDescription[:-1]
-                        image = js["image"]["contentUrl"]
-                        permalink = js["detailedDescription"]["url"]
 
                         embed = discord.Embed(title=name, colour=discord.Color.orange())
-                        embed.url = permalink
-                        embed.description = "\n{}\n\n\n*{}*\n".format(briefDescription, detailedDescription)
-                        embed.set_image(url=image)
+                        
+                        try:
+                            briefDescription = js["description"]
+                            isBrieflyDetailed = True
+                        except KeyError:
+                            briefDescription = "No brief description available."
+                            isBrieflyDetailed = False
+
+                        try:
+                            detailedDescription = js["detailedDescription"]["articleBody"]
+                            isDetailed = True
+                            if detailedDescription[-1] == " " or detailedDescription[-1] == "\n":
+                                detailedDescription = detailedDescription[:-1]
+                        except KeyError:
+                            isDetailed = False
+                            detailedDescription = "No detailed description available."
+
+                        try:
+                            permalink = js["detailedDescription"]["url"]
+                            embed.url = permalink
+                        except KeyError:
+                            permalink = "no permalink available." 
+
+                        if isDetailed is True and isBrieflyDetailed is True:
+                            embed.description = "\n{}\n\n\n*{}*\n".format(briefDescription, detailedDescription)
+                        elif isDetailed is False and isBrieflyDetailed is True:
+                            embed.description = "\n{}\n\n".format(briefDescription)
+                        elif isDetailed is True and isBrieflyDetailed is False:
+                            embed.description = "\n\n*{}*\n\n".format(detailedDescription)
+
+                        
+                        try:
+                            image = js["image"]["contentUrl"]
+                            embed.set_image(url=image)
+                        except KeyError:
+                            image = "No image available."
+
                         embed.set_footer(text="From Google Graph Knowledge", icon_url="http://i.imgur.com/2obljmu.png")
                     
                         try:
                             await self.bot.say(embed=embed)
                         except discord.errors.Forbidden:
                             await self.bot.say("__**{}** ({})__\n\n{}\n\n\n*{}*\n\n{}\n".format(name, permalink, briefDescription, detailedDescription, image))
+
                         if disambig is True:
                             await self.bot.say("If this is not the definition you wanted, try being a bit more precise next time. {} can refer to many things!".format(term))
                     else:
