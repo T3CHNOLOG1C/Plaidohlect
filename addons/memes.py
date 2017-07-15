@@ -227,6 +227,11 @@ class Memes:
     async def birds(self, ctx):
         """Memes."""
         await self._meme(ctx, "http://i.imgur.com/fVAx5oh.png")
+	
+	@commands.command(pass_context=True, hidden=True)
+    async def kina(self, ctx):
+        """Memes."""
+        await self._meme(ctx, "http://i.imgur.com/8Mm5ZvB.jpg")
 		
 # Load the extension
 def setup(bot):
