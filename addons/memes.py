@@ -230,7 +230,7 @@ class Memes:
 	
     @commands.command(pass_context=True, hidden=True)
     async def kina(self, ctx):
-    """Memes."""
+        """Memes."""
         await self._meme(ctx, "http://i.imgur.com/8Mm5ZvB.jpg")
 		
 # Load the extension
