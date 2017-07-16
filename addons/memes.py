@@ -232,6 +232,21 @@ class Memes:
     async def kina(self, ctx):
         """Memes."""
         await self._meme(ctx, "http://i.imgur.com/8Mm5ZvB.jpg")
+	
+    @commands.command(pass_context=True, hidden=True)
+    async def macboy(self, ctx):
+        """Memes."""
+        await self._meme(ctx, "http://i.imgur.com/IpQC6IF.png")
+	
+    @commands.command(pass_context=True, hidden=True)
+    async def sn0w(self, ctx):
+        """Memes."""
+        await self._meme(ctx, "http://i.imgur.com/sFD5uSB.png")
+	
+    @commands.command(pass_context=True, hidden=True)
+    async def gudie(self, ctx):
+        """Memes."""
+        await self._meme(ctx, "https://gudie.racklab.xyz")
 		
 # Load the extension
 def setup(bot):
