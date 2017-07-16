@@ -246,7 +246,7 @@ class Memes:
     @commands.command(pass_context=True, hidden=True)
     async def gudie(self, ctx):
         """Memes."""
-        await self._meme(ctx, "https://gudie.racklab.xyz/")
+        await self._meme(ctx, "https://gudie.racklab.xyz")
 		
 # Load the extension
 def setup(bot):
