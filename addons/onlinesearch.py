@@ -128,6 +128,15 @@ class OnlineSearch:
                     await self.bot.say(embed=embed)
                 except discord.errors.Forbidden:
                     await self.bot.say("**__Ubuntu :__**\n\n{}\n\n__Example :__\nI installed Ubuntu yesterday, it was way more easier than Debian.\n\n*Defined by oSuperDaveo*".format(embed.description))
+        elif term.lower() == "t3chnolog1c" or term.lower() == "t3ch":
+            t3ch = await self.bot.get_user_info("208370244207509504")
+            try:
+                embed = discord.Embed(title="T3CHNOLOG1C", colour=discord.Color.blue())
+                embed.set_thumbnail(url=t3ch.avatar_url)
+                embed.description = "The cancerous retard that runs this server."
+                await self.bot.say(embed=embed)
+            except discord.errors.Forbidden:
+                await self.bot.say("**__T3CHNOLOG1C :__**\n\nThe cancerous retard that runs this server.")
         else:
             exception = False
             try:
