@@ -36,10 +36,17 @@ class OnlineSearch:
         
         js = r.json()
 
-        
-        if js["result_type"] != "no_results":
+        try:
+            if js["result_type"] != "no_results":
+                resultFound = True
+        except:
+            resultFound = True
+        if resultFound:
             try:
-                firstResult = js["list"][int(n)-1]
+                if term is None:
+                    firstResult = js["list"][0]
+                else:
+                    firstResult = js["list"][int(n)-1]
                 word = firstResult["word"]
                 definition = firstResult["definition"]
                 example = firstResult["example"]
@@ -73,7 +80,7 @@ class OnlineSearch:
                     embed.add_field(name="Downvotes", value="👎 **{}**\n\n".format(thumbsdown), inline=True)
                     embed.set_footer(text="Defined by {0}".format(author))
                     await self.bot.say(embed=embed)
-                except discord.errors.Forbidden:
+                except (discord.errors.Forbidden, discord.errors.HTTPException):
                     await self.bot.say("**__Definition of {0}__**__ ({1})__\n\n\n".format(word, permalink) + definition + "\n\n" + "__Example(s) :__\n\n" + textExamples + "\n\n\n" + str(thumbsup) + " 👍\n\n" + str(thumbsdown) + " 👎\n\n\n\n" + "*Defined by " + author + "*")
             except ValueError:
                 await self.bot.say("`Invalid syntax. If you want to specify which definition should be returned, use the following syntax :\n\".urban [term], [number]\"`")
