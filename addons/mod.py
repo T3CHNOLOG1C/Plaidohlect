@@ -46,7 +46,7 @@ class Mod:
     async def pull(self, ctx):
         """Pull new changes from GitHub and restart."""
         dev = ctx.message.author
-        if self.bot.botdev_role in dev.roles:
+        if self.bot.botdev_role in dev.roles or self.bot.owner_role in dev.roles:
             await self.bot.say("`Pulling changes...`")
             call(["git", "pull"])
             await self.bot.say("Pulled changes! Restarting bot...")
