@@ -52,7 +52,7 @@ class Mod:
             await self.bot.say("Pulled changes! Restarting bot...")
             execv("./run.py", argv)
         else:
-            await self.bot.say("Only bot devs can use this command")
+            await self.bot.say("Only bot devs and owners can use this command.")
             
     @commands.has_permissions(manage_server=True)
     @commands.command(pass_context=True, hidden=True)
