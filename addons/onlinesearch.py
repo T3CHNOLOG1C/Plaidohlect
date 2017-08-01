@@ -110,7 +110,7 @@ class OnlineSearch:
             term = term[6:]
         elif term[0:3] == "is " and term != "is":
             term = term[3:]
-        elif term[0:4] == "are " and term != "are":
+        elif term[0:4] == "are " and term != "are" and term != "are you":
             term = term[4:]
 
         term = capwords(term)
@@ -144,6 +144,13 @@ class OnlineSearch:
                 await self.bot.say(embed=embed)
             except discord.errors.Forbidden:
                 await self.bot.say("**__T3CHNOLOG1C :__**\n\nThe cancerous retard that runs this server.")
+        elif term.lower() == "are you":
+            embed = discord.Embed(title="Plaidohlect", color=discord.Color.orange())
+            embed.set_author(name="T3CHNOLOG1C, Sentry, Ali365Dash and Hydraxis")
+            embed.set_thumbnail(url="http://i.imgur.com/6C2VD4Z.jpg")
+            embed.url = "https://github.com/T3CHNOLOG1C/Plaidohlect"
+            embed.description = "Plaidohlect, the Secret Shack Service bot!"
+            await self.bot.say("", embed=embed)
         else:
             exception = False
             try:
