@@ -114,6 +114,8 @@ class OnlineSearch:
             term = term[4:]
 
         term = capwords(term)
+        if len(term) > 300:
+            return await self.bot.say("Request is too long!")
 
         if term.lower() == "kai" or term.lower() == "mitchy":
             kai = await self.bot.get_user_info("272908611255271425")
@@ -256,6 +258,8 @@ class OnlineSearch:
                         await self.bot.say("You did not mention a Google kgsearch API Key in the config.ini file! Please set up one here : https://console.developers.google.com/project/_/apiui/credential")
                     elif js["error"]["message"] == "API key not valid. Please pass a valid API key.": #Checks if API Key is valid
                         await self.bot.say("The mentioned Google kgsearch API Key is invalid! Please set up a correct API Key here : https://console.developers.google.com/project/_/apiui/credential")
+                    else:
+                        await self.bot.say("Invalid request. Stop trying to break the bot you shit.")
 
 
 #TO-DO : google web and image search
