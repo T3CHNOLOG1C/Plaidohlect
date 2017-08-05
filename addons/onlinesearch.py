@@ -254,7 +254,7 @@ class OnlineSearch:
                 except KeyError:
                     if js["error"]["code"] == 403: #Checks if API Key is specified
                         await self.bot.say("You did not mention a Google kgsearch API Key in the config.ini file! Please set up one here : https://console.developers.google.com/project/_/apiui/credential")
-                    elif js["error"]["code"] == 400: #Checks if API Key is valid
+                    elif js["error"]["message"] == "API key not valid. Please pass a valid API key.": #Checks if API Key is valid
                         await self.bot.say("The mentioned Google kgsearch API Key is invalid! Please set up a correct API Key here : https://console.developers.google.com/project/_/apiui/credential")
 
 
