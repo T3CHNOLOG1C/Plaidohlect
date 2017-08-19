@@ -60,7 +60,7 @@ if not os.path.isfile("data/softbans.json"):
         f.write("{}")
 
 
-prefix = ['.']
+prefix = ['P, ']
 bot = commands.Bot(command_prefix=prefix, description=description, pm_help=None)
 
 bot.actions = [] 
